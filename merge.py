@@ -55,8 +55,6 @@ def fill_empty_attributes():
 
 
 def search_player(player_name, year):
-	search_count = 0
-
 	for player in stats_data[year]:
 		if player["info"]["Name"].lower() == player_name.lower() or set([player_name, player["info"]["Name"]]) in whitelist:
 			return player
@@ -69,11 +67,8 @@ def search_player(player_name, year):
 					proceed = raw_input("Choice yes if above two is equivalent player(Y/N) ")
 					if proceed == 'Y' or proceed == 'y':
 						whitelist.add(frozenset({player_name, player["info"]["Name"]}))
-						search_count += 1
-						print("Search count: %d" % (search_count))
 						return player
 					elif proceed == 'N' or proceed == 'n':
-						search_count += 1
 						blacklist.add(frozenset({player_name, player["info"]["Name"]}))
 						break
 	return False

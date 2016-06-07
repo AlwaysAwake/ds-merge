@@ -35,7 +35,7 @@ def read_data():
 	for year in range(START_YEAR, END_YEAR + 1):
 		with open('./player_stats/fifa' + str(year) + '.json') as stats_file:
 			print("Loading stats_data of %d" % (year))
-			stats_data[year] = json.load(stats_file)
+      stats_data[year] = json.load(stats_file)
 
 
 def fill_empty_attributes():

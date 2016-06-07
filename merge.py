@@ -171,7 +171,7 @@ def validate_data():
 	print("Feature length: %d" % (feature_length))
 	for year in range(START_YEAR, END_YEAR + 1):
 		for match in match_vectors_of_year[year]:
-			if feature_length != len(match_vectors_of_year[year]):
+			if feature_length != len(match):
 				print("Error! training sample length mismatch")
 				print("Current match vector length: %d" % (len(match)))
 

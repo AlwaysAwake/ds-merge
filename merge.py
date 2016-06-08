@@ -110,7 +110,7 @@ def get_average():
             for attribute in attributes:
                 value = sums[team][attribute] / counts[team][attribute]
                 average_stats[year][team][attribute] = value
-"""
+
 
 def extract_stats(player):
     vector = [player[attribute] for attribute in ["Height", "Weight", "Age", "Overall", "Potential", "BallControl", "Dribbling", "Marking", "Tackling", "SlideTackling", "StandTackling", "Aggregation", "Anticipation", "Composure", "Ceativity", "Reactions", "AttPosition", "Interceptions", "Vision", "Crossing", "Passing", "LongBalls", "ShortPass", "LongPass", "Acceleration", "Pace", "Stamina", "Strength", "Balance", "SprintSpeed", "Agility", "Jumping", "Heading", "ShotAccuracy", "ShotPower", "LongShots", "Finishing", "FKAcc", "Curve", "Penalties", "YeVolleysar", "Reflexes", "Rushing", "Handling", "GKPosition", "GKDiving", "GKHandling", "GKKicking", "GKReflexes"]]
@@ -134,6 +134,8 @@ def parse_match_result(score_str):
 
 
 def merge():
+    global hit
+    global number_of_players
     attributes = ["Height", "Weight", "Age", "Overall", "Potential", "BallControl", "Dribbling", "Marking", "Tackling", "SlideTackling", "StandTackling", "Aggregation", "Anticipation", "Composure", "Ceativity", "Reactions", "AttPosition", "Interceptions", "Vision", "Crossing", "Passing", "LongBalls", "ShortPass", "LongPass", "Acceleration", "Pace", "Stamina", "Strength", "Balance", "SprintSpeed", "Agility", "Jumping", "Heading", "ShotAccuracy", "ShotPower", "LongShots", "Finishing", "FKAcc", "Curve", "Penalties", "YeVolleysar", "Reflexes", "Rushing", "Handling", "GKPosition", "GKDiving", "GKHandling", "GKKicking", "GKReflexes"]
     for year in range(START_YEAR, END_YEAR + 1):
         match_vectors_of_year[year] = list()

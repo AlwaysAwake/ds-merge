@@ -14,7 +14,7 @@ match_vectors_of_year = dict()
 blacklist = set()
 whitelist = set()
 
-START_YEAR = 2007
+START_YEAR = 2016
 # END_YEAR = 2007
 END_YEAR = 2016
 
@@ -46,30 +46,29 @@ def fill_empty_attributes():
         for player in stats_data[year]:
             groups = [["Marking", "Tackling", "SlideTackling", "StandTackling"], ["Aggregation", "Anticipation", "Composure", "Ceativity", "Reactions", "AttPosition", "Interceptions", "Vision"], ["Crossing", "Passing", "LongBalls", "ShortPass", "LongPass"], ["Acceleration", "Pace", "Stamina", "Strength", "Balance", "SprintSpeed", "Agility", "Jumping"], ["Heading", "ShotAccuracy", "ShotPower", "LongShots", "Finishing", "FKAcc", "Curve", "Penalties", "YeVolleysar"], ["Reflexes", "Rushing", "Handling", "GKPosition", "GKDiving", "GKHandling", "GKKicking", "GKReflexes"]]
             for group in groups:
-                sum = 0
+                score_sum = 0
                 count = 0
                 for attribute in group:
                     if player[attribute] != 'XX':
-                        sum += int(player[attribute])
+                        score_sum += int(player[attribute])
                         count += 1
                 for attribute in group:
                     if player[attribute] == 'XX':
-                        player[attribute] = sum / count
+                        player[attribute] = int(score_sum / count)
 
 
 def search_player(player_name, year):
     for player in stats_data[year]:
         if player["info"]["Name"].lower() == player_name.lower() or set([player_name, player["info"]["Name"]]) in whitelist:
             return player
+        else:
 
-    """
+
     for player in stats_data[year]:
         for word in player_name.replace("-", " ").split(' '):
             if player["info"]["Name"].lower().find(word.lower()) != -1 and set([player_name, player["info"]["Name"]]) not in blacklist:
                 print("Name in lineup set: %s" % (player_name))
                 print("Name in stat set: %s" % (player["info"]["Name"]))
-                # print("Name in stat set: %s" % (player["info"]["Name"]))
-                # print("Original name: %s" % (player_name))
                 
                 while True:
                     proceed = raw_input("Choice yes if above two is equivalent player(Y/N) ")
@@ -79,9 +78,10 @@ def search_player(player_name, year):
                     elif proceed == 'N' or proceed == 'n':
                         blacklist.add(frozenset({player_name, player["info"]["Name"]}))
                         break
-    """
+
     return False
 
+"""
 def get_average():
     attributes = ["Height", "Weight", "Age", "Overall", "Potential", "BallControl", "Dribbling", "Marking", "Tackling", "SlideTackling", "StandTackling", "Aggregation", "Anticipation", "Composure", "Ceativity", "Reactions", "AttPosition", "Interceptions", "Vision", "Crossing", "Passing", "LongBalls", "ShortPass", "LongPass", "Acceleration", "Pace", "Stamina", "Strength", "Balance", "SprintSpeed", "Agility", "Jumping", "Heading", "ShotAccuracy", "ShotPower", "LongShots", "Finishing", "FKAcc", "Curve", "Penalties", "YeVolleysar", "Reflexes", "Rushing", "Handling", "GKPosition", "GKDiving", "GKHandling", "GKKicking", "GKReflexes"]
     for year in range(START_YEAR, END_YEAR + 1):
@@ -110,10 +110,11 @@ def get_average():
             for attribute in attributes:
                 value = sums[team][attribute] / counts[team][attribute]
                 average_stats[year][team][attribute] = value
+"""
 
 
 def extract_stats(player):
-    vector = [player[attribute] for attribute in ["Height", "Weight", "Age", "Overall", "Potential", "BallControl", "Dribbling", "Marking", "Tackling", "SlideTackling", "StandTackling", "Aggregation", "Anticipation", "Composure", "Ceativity", "Reactions", "AttPosition", "Interceptions", "Vision", "Crossing", "Passing", "LongBalls", "ShortPass", "LongPass", "Acceleration", "Pace", "Stamina", "Strength", "Balance", "SprintSpeed", "Agility", "Jumping", "Heading", "ShotAccuracy", "ShotPower", "LongShots", "Finishing", "FKAcc", "Curve", "Penalties", "YeVolleysar", "Reflexes", "Rushing", "Handling", "GKPosition", "GKDiving", "GKHandling", "GKKicking", "GKReflexes"]]
+    vector = [int(player[attribute]) for attribute in ["Height", "Weight", "Age", "Overall", "Potential", "BallControl", "Dribbling", "Marking", "Tackling", "SlideTackling", "StandTackling", "Aggregation", "Anticipation", "Composure", "Ceativity", "Reactions", "AttPosition", "Interceptions", "Vision", "Crossing", "Passing", "LongBalls", "ShortPass", "LongPass", "Acceleration", "Pace", "Stamina", "Strength", "Balance", "SprintSpeed", "Agility", "Jumping", "Heading", "ShotAccuracy", "ShotPower", "LongShots", "Finishing", "FKAcc", "Curve", "Penalties", "YeVolleysar", "Reflexes", "Rushing", "Handling", "GKPosition", "GKDiving", "GKHandling", "GKKicking", "GKReflexes"]]
     return vector
 
 
@@ -197,6 +198,10 @@ def generate_output():
         for match in match_vectors_of_year[END_YEAR]:
             print(match, file=test_file)
 
+def save_classification():
+    with open("classification.json", "w") as outfile:
+
+
 def get_hit_ratio():
     print("Exact match ratio: %f%%" % (float(hit) / float(number_of_players) * 100))
 
@@ -208,4 +213,5 @@ if __name__ == "__main__":
     validate_data()
     generate_output_json()
     generate_output()
+    save_classification()
     get_hit_ratio()

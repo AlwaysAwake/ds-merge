@@ -67,7 +67,7 @@ def search_player(player_name, year):
             for player in stats_data[another_year]:
                 if player["info"]["Name"].lower() == player_name.lower() or set([player_name, player["info"]["Name"]]) in whitelist:
                     return player
-    """
+    
     for player in stats_data[year]:
         for word in player_name.replace("-", " ").split(' '):
             if player["info"]["Name"].lower().find(word.lower()) != -1 and set([player_name, player["info"]["Name"]]) not in blacklist:
@@ -82,7 +82,6 @@ def search_player(player_name, year):
                     elif proceed == 'N' or proceed == 'n':
                         blacklist.add(frozenset({player_name, player["info"]["Name"]}))
                         break
-    """
 
     return False
 

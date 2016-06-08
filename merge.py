@@ -14,7 +14,7 @@ match_vectors_of_year = dict()
 blacklist = set()
 whitelist = set()
 
-START_YEAR = 2016
+START_YEAR = 2007
 # END_YEAR = 2007
 END_YEAR = 2016
 
@@ -61,8 +61,6 @@ def search_player(player_name, year):
     for player in stats_data[year]:
         if player["info"]["Name"].lower() == player_name.lower() or set([player_name, player["info"]["Name"]]) in whitelist:
             return player
-        else:
-
 
     for player in stats_data[year]:
         for word in player_name.replace("-", " ").split(' '):

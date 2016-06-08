@@ -14,7 +14,7 @@ match_vectors_of_year = dict()
 blacklist = set()
 whitelist = set()
 
-START_YEAR = 2016
+START_YEAR = 2007
 # END_YEAR = 2007
 END_YEAR = 2016
 

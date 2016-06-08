@@ -160,8 +160,8 @@ def merge():
                     team_average[team][attribute] /= len(teammate)
 
             for team in ["home", "away"]:
+                number_of_players += len(v[team])
                 for player_name in v[team]:
-                    number_of_players += len(v[team])
                     result = search_player(player_name, year)
                     if result != False:
                         hit += 1

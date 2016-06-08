@@ -62,12 +62,13 @@ def search_player(player_name, year):
         if player["info"]["Name"].lower() == player_name.lower() or set([player_name, player["info"]["Name"]]) in whitelist:
             return player
 
+    """
     for player in stats_data[year]:
         for word in player_name.replace("-", " ").split(' '):
             if player["info"]["Name"].lower().find(word.lower()) != -1 and set([player_name, player["info"]["Name"]]) not in blacklist:
                 print("Name in lineup set: %s" % (player_name))
                 print("Name in stat set: %s" % (player["info"]["Name"]))
-                
+
                 while True:
                     proceed = raw_input("Choice yes if above two is equivalent player(Y/N) ")
                     if proceed == 'Y' or proceed == 'y':
@@ -76,6 +77,7 @@ def search_player(player_name, year):
                     elif proceed == 'N' or proceed == 'n':
                         blacklist.add(frozenset({player_name, player["info"]["Name"]}))
                         break
+    """
 
     return False
 

@@ -196,12 +196,10 @@ def generate_output():
         for match in match_vectors_of_year[END_YEAR]:
             print(match, file=test_file)
 
-def save_classification():
-    with open("classification.json", "w") as outfile:
-
 
 def get_hit_ratio():
     print("Exact match ratio: %f%%" % (float(hit) / float(number_of_players) * 100))
+
 
 if __name__ == "__main__":
     print("Start")
@@ -211,5 +209,4 @@ if __name__ == "__main__":
     validate_data()
     generate_output_json()
     generate_output()
-    save_classification()
     get_hit_ratio()

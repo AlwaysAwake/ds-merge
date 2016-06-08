@@ -14,7 +14,7 @@ match_vectors_of_year = dict()
 blacklist = set()
 whitelist = set()
 
-START_YEAR = 2007
+START_YEAR = 2016
 # END_YEAR = 2007
 END_YEAR = 2016
 
@@ -59,13 +59,13 @@ def fill_empty_attributes():
 
 def search_player(player_name, year):
     for player in stats_data[year]:
-        if player["info"]["Name"].lower() == player_name.lower() or set([player_name, player["info"]["Name"]]) in whitelist:
+        if player["info"]["Name"].lower() == player_name.lower() or player["info"]["Name"].lower() in player_name.lower() or player_name.lower() in player["info"]["Name"].lower() or set([player_name, player["info"]["Name"]]) in whitelist:
             return player
 
     for another_year in range(START_YEAR, END_YEAR + 1):
         if another_year != year:
             for player in stats_data[another_year]:
-                if player["info"]["Name"].lower() == player_name.lower() or set([player_name, player["info"]["Name"]]) in whitelist:
+                if player["info"]["Name"].lower() == player_name.lower() or player["info"]["Name"].lower() in player_name.lower() or player_name.lower() in player["info"]["Name"].lower() or set([player_name, player["info"]["Name"]]) in whitelist:
                     return player
     
     for player in stats_data[year]:
@@ -162,7 +162,7 @@ def merge():
                     team_average[team][attribute] = 0
                     for teammate in teammates:
                         team_average[team][attribute] += int(teammate[attribute])
-                    team_average[team][attribute] /= len(teammate)
+                    team_average[team][attribute] /= len(teammates)
 
             for team in ["home", "away"]:
                 number_of_players += len(v[team])

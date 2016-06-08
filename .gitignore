@@ -1,3 +1,5 @@
 *.swp
 training_set.*
 test_set.*
+
+.idea/

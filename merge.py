@@ -15,7 +15,11 @@ blacklist = set()
 whitelist = set()
 
 START_YEAR = 2007
+# END_YEAR = 2007
 END_YEAR = 2016
+
+number_of_players = 0
+hit = 0
 
 
 def read_data():
@@ -56,13 +60,19 @@ def fill_empty_attributes():
 
 def search_player(player_name, year):
     for player in stats_data[year]:
+        number_of_players += len(stats_data[year])
         if player["info"]["Name"].lower() == player_name.lower() or set([player_name, player["info"]["Name"]]) in whitelist:
+            hit += 1
             return player
+
     for player in stats_data[year]:
         for word in player_name.replace("-", " ").split(' '):
             if player["info"]["Name"].lower().find(word.lower()) != -1 and set([player_name, player["info"]["Name"]]) not in blacklist:
+                print("Name in lineup set: %s" % (player_name))
                 print("Name in stat set: %s" % (player["info"]["Name"]))
-                print("Original name: %s" % (player_name))
+                # print("Name in stat set: %s" % (player["info"]["Name"]))
+                # print("Original name: %s" % (player_name))
+                """
                 while True:
                     proceed = raw_input("Choice yes if above two is equivalent player(Y/N) ")
                     if proceed == 'Y' or proceed == 'y':
@@ -71,6 +81,7 @@ def search_player(player_name, year):
                     elif proceed == 'N' or proceed == 'n':
                         blacklist.add(frozenset({player_name, player["info"]["Name"]}))
                         break
+                """
     return False
 
 """
@@ -185,6 +196,8 @@ def generate_output():
         for match in match_vectors_of_year[END_YEAR]:
             print(match, file=test_file)
 
+def get_hit_ratio():
+    print("Exact match ratio: %f%%" % (float(hit) / float(number_of_players) * 100))
 
 if __name__ == "__main__":
     print("Start")
@@ -194,3 +207,4 @@ if __name__ == "__main__":
     validate_data()
     generate_output_json()
     generate_output()
+    get_hit_ratio()

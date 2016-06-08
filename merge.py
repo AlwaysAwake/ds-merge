@@ -174,6 +174,7 @@ def merge():
                     else:
                         match_vector += extract_stats(team_average[team])
 
+            match_vector += extract_odds(gamble_data[year][k])
             match_vector += parse_match_result(gamble_data[year][k]["score"])
             match_vectors_of_year[year].append(match_vector)
 

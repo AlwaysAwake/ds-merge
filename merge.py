@@ -18,6 +18,8 @@ START_YEAR = 2007
 # END_YEAR = 2007
 END_YEAR = 2016
 
+number_of_players = 0
+hit = 0
 
 def read_data():
     # Read gamble data
@@ -60,6 +62,7 @@ def search_player(player_name, year):
         if player["info"]["Name"].lower() == player_name.lower() or set([player_name, player["info"]["Name"]]) in whitelist:
             return player
 
+    """
     for player in stats_data[year]:
         for word in player_name.replace("-", " ").split(' '):
             if player["info"]["Name"].lower().find(word.lower()) != -1 and set([player_name, player["info"]["Name"]]) not in blacklist:
@@ -67,7 +70,7 @@ def search_player(player_name, year):
                 print("Name in stat set: %s" % (player["info"]["Name"]))
                 # print("Name in stat set: %s" % (player["info"]["Name"]))
                 # print("Original name: %s" % (player_name))
-                """
+                
                 while True:
                     proceed = raw_input("Choice yes if above two is equivalent player(Y/N) ")
                     if proceed == 'Y' or proceed == 'y':
@@ -76,10 +79,9 @@ def search_player(player_name, year):
                     elif proceed == 'N' or proceed == 'n':
                         blacklist.add(frozenset({player_name, player["info"]["Name"]}))
                         break
-                """
+    """
     return False
 
-"""
 def get_average():
     attributes = ["Height", "Weight", "Age", "Overall", "Potential", "BallControl", "Dribbling", "Marking", "Tackling", "SlideTackling", "StandTackling", "Aggregation", "Anticipation", "Composure", "Ceativity", "Reactions", "AttPosition", "Interceptions", "Vision", "Crossing", "Passing", "LongBalls", "ShortPass", "LongPass", "Acceleration", "Pace", "Stamina", "Strength", "Balance", "SprintSpeed", "Agility", "Jumping", "Heading", "ShotAccuracy", "ShotPower", "LongShots", "Finishing", "FKAcc", "Curve", "Penalties", "YeVolleysar", "Reflexes", "Rushing", "Handling", "GKPosition", "GKDiving", "GKHandling", "GKKicking", "GKReflexes"]
     for year in range(START_YEAR, END_YEAR + 1):
@@ -132,8 +134,6 @@ def parse_match_result(score_str):
 
 
 def merge():
-    number_of_players = 0
-    hit = 0
     attributes = ["Height", "Weight", "Age", "Overall", "Potential", "BallControl", "Dribbling", "Marking", "Tackling", "SlideTackling", "StandTackling", "Aggregation", "Anticipation", "Composure", "Ceativity", "Reactions", "AttPosition", "Interceptions", "Vision", "Crossing", "Passing", "LongBalls", "ShortPass", "LongPass", "Acceleration", "Pace", "Stamina", "Strength", "Balance", "SprintSpeed", "Agility", "Jumping", "Heading", "ShotAccuracy", "ShotPower", "LongShots", "Finishing", "FKAcc", "Curve", "Penalties", "YeVolleysar", "Reflexes", "Rushing", "Handling", "GKPosition", "GKDiving", "GKHandling", "GKKicking", "GKReflexes"]
     for year in range(START_YEAR, END_YEAR + 1):
         match_vectors_of_year[year] = list()

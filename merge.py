@@ -18,9 +18,6 @@ START_YEAR = 2007
 # END_YEAR = 2007
 END_YEAR = 2016
 
-number_of_players = 0
-hit = 0
-
 
 def read_data():
     # Read gamble data
@@ -60,9 +57,7 @@ def fill_empty_attributes():
 
 def search_player(player_name, year):
     for player in stats_data[year]:
-        number_of_players += len(stats_data[year])
         if player["info"]["Name"].lower() == player_name.lower() or set([player_name, player["info"]["Name"]]) in whitelist:
-            hit += 1
             return player
 
     for player in stats_data[year]:
@@ -137,6 +132,8 @@ def parse_match_result(score_str):
 
 
 def merge():
+    number_of_players = 0
+    hit = 0
     attributes = ["Height", "Weight", "Age", "Overall", "Potential", "BallControl", "Dribbling", "Marking", "Tackling", "SlideTackling", "StandTackling", "Aggregation", "Anticipation", "Composure", "Ceativity", "Reactions", "AttPosition", "Interceptions", "Vision", "Crossing", "Passing", "LongBalls", "ShortPass", "LongPass", "Acceleration", "Pace", "Stamina", "Strength", "Balance", "SprintSpeed", "Agility", "Jumping", "Heading", "ShotAccuracy", "ShotPower", "LongShots", "Finishing", "FKAcc", "Curve", "Penalties", "YeVolleysar", "Reflexes", "Rushing", "Handling", "GKPosition", "GKDiving", "GKHandling", "GKKicking", "GKReflexes"]
     for year in range(START_YEAR, END_YEAR + 1):
         match_vectors_of_year[year] = list()
@@ -162,8 +159,10 @@ def merge():
 
             for team in ["home", "away"]:
                 for player_name in v[team]:
+                    number_of_players += len(v[team])
                     result = search_player(player_name, year)
                     if result != False:
+                        hit += 1
                         match_vector += extract_stats(result)
                     else:
                         match_vector += extract_stats(team_average[team])
